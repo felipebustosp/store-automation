@@ -35,10 +35,21 @@ class StoreTestSuite(unittest.TestCase):
         max_range.send_keys(value2)
         self.driver.find_element(By.CLASS_NAME,'a-button-input').click()
 
+#   Filter only elements by brand and check how many results we have visible in page
+
+    def test_search_by_brand(self):
+        self.driver.find_element(By.ID,'twotabsearchtextbox').send_keys("keyboard")
+        self.driver.find_element(By.ID,'nav-search-submit-button').click()
+        result = self.driver.find_element(By.XPATH,"//ul/li[@id = 'p_89/Logitech']//input[@type='checkbox']")
+        self.driver.execute_script("arguments[0].click()", result)
+
+
+
 def main():
     suite = unittest.TestSuite()
     suite.addTest(StoreTestSuite('test_search_and_find_fourth_element_from_list'))
     suite.addTest(StoreTestSuite('test_search_between_range'))
+    suite.addTest(StoreTestSuite('test_search_by_brand'))
     runner = unittest.TextTestRunner()
     runner.run(suite) 
 
